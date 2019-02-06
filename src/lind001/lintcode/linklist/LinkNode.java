@@ -1,38 +1,46 @@
 package lind001.lintcode.linklist;
 
 /**
- * ����ڵ�
+ * 链表节点
  * @author ld
  *
  */
 public class LinkNode {
 	/**
-	 * �ؼ���
+	 * 关键字
 	 */
 	public int key;
 
 	/**
-	 * ���ݳ�Ա
+	 * 数据成员
 	 */
 	public String data;
 
 	/**
-	 * ָ�루ָ����һ���ڵ㣩
+	 * 后继指针
 	 */
 	public LinkNode next;
 	
 	/**
-	 * ָ��ǰ���ڵ� 
+	 * 前驱指针
 	 */
 	public LinkNode previous;
 	
 
-	/** ���췽��
+	/** 
 	 * @param key
 	 */
 	public LinkNode(int key) {
 		this.key = key;
 		this.data = null;
+		this.next = null;
+	}
+	
+	/**
+	 * @param data
+	 */
+	public LinkNode(String data) {
+		this.data = data;
 		this.next = null;
 	}
 	
@@ -43,4 +51,5 @@ public class LinkNode {
 		this.data = null;
 		this.next = null;
 	}
+	
 }
