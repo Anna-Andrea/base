@@ -69,6 +69,13 @@ public class TreeNode {
         this.next = null;
         this.previous = null;
     }
+    
+    /**构造函数（用于括号匹配、表达式转换等）
+     * @param exp
+     */
+    public TreeNode(String exp) {
+    	this.name = exp;
+    }
 
     /**
      * 是否为满节点（拥有左右孩子）
