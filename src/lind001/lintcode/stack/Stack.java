@@ -166,6 +166,85 @@ public class Stack {
 		return false;
 	}
 	
+	/**
+	 * 函数的非递归计算
+	 * p87-3
+	 * @param n
+	 * @param x
+	 * @return
+	 * @throws JDSException 
+	 */
+	public static int nonRecursiveCal(int n,int x) throws JDSException {
+		// 若使用非递归求f(5)，则f(0),f(1),f(2),f(3),f(4)只需要各计算一次（因为使用栈保存了中间函数计算结果）
+		// 若使用递归求f(5)，则需要计算f(5),f(4)一次，f(3)两次，f(2)三次，f(1)五次，f(0)三次，效率较低
+		// 某种程度上非递归是自底向上计算，而递归是自顶向下计算
+		int result = 0;
+		int i=0;
+		LinkStack stack = new LinkStack(); 
+		while (i<=n) {   
+			if (i==0) {
+				result = 1;
+				stack.push(new TreeNode(result));// 计算f(0),并将f(0)入栈
+			} else if (i==1){
+				result = 2*x;
+				stack.push(new TreeNode(result));// 计算f(1)，并将f(1)入栈
+			}
+			// 求f(2),f(3),f(r4),f(5)....
+			else {
+				// 为计算f(n)，出栈，取出f(n-1)与f(n-2)
+				int a = stack.getTop().key;
+				stack.pop();
+				TreeNode node = stack.getTop();
+				int b = node.key;
+				stack.pop();
+				// 计算f(n)，并将f(n)与f(n-1)入栈，为之后如果需要计算f(n+1)做准备
+				result = 2*x*a - 2*(n-1)*b;
+				stack.push(node);
+				stack.push(new TreeNode(result));
+			}
+			i++;
+		}
+		return result;
+	}
+	
+	/**
+	 * 车厢调度 
+	 * p87-2
+	 * @param cabins
+	 * @return 
+	 * @return 
+	 * @throws JDSException 
+	 */
+	public static String cabinDispatch(String[] cabins) throws JDSException {
+		String result = "";
+		int i=0;
+		LinkStack stack = new LinkStack();
+		while (i<cabins.length) {
+			// 软座车厢，入栈并出栈
+			if (cabins[i] == "S") {
+				stack.push(new TreeNode("S"));
+				result += "push(S) ";
+				stack.pop();
+				result += "pop(S) ";
+			} 
+			// 硬座车厢，入栈，直至车厢序列扫描完成后，如果栈不为空，再将所有硬座车厢出栈
+			else if (cabins[i] == "H") {
+				stack.push(new TreeNode("H"));
+				result += "push(H) ";
+			}
+			else {
+				throw new JDSException("系统只能对硬座车厢和软件车厢调度");
+			}
+			i++;
+		}
+		// 输出剩余的硬座车厢
+		while (!stack.isEmpty()) {
+			stack.pop();
+			result += "pop(H) ";
+		}
+		return result;
+	}
+	
 
 
 	

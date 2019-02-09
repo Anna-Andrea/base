@@ -12,6 +12,11 @@ public class TreeNode {
     // for HuffmanTree
     public int rank;
     public String name;
+    
+    /**
+     * 该树节点所属层次，根节点为第一层 
+     */
+    public int height;
 
     public TreeNode lchild;
     public TreeNode rchild;

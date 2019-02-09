@@ -46,7 +46,7 @@ public class Queue {
 					boatFlag ++;
 				}
 			} 
-			// 如果是货船：①加入货船队列中；②检查总队列中
+			// 如果是货船，加入货船队列中
 			else if (ships[i].contains("C")) {
 				cargoQueue.insert(new TreeNode(ships[i]));
 			}
