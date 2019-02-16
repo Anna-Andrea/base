@@ -10,8 +10,6 @@ import lind001.jds.exception.JDSException;
  */
 public abstract class Tree {
 
-    public Object root;
-
     public abstract boolean isEmpty();
 
     public abstract void preOrder() throws JDSException;

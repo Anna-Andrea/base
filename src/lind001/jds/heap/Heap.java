@@ -174,7 +174,7 @@ public class Heap {
      * @param value
      * @return
      */
-    public double logArithm(double base, double value) {
+    public static double logArithm(double base, double value) {
         return Math.log(value) / Math.log(base);
     }
 
@@ -187,7 +187,7 @@ public class Heap {
         }
         int currentGrade = 0;
         // print by grade
-        while (currentGrade < Math.ceil(this.logArithm(2, this.heapNum + 1))) {
+        while (currentGrade < Math.ceil(logArithm(2, this.heapNum + 1))) {
             int beginIndex = (int)(Math.pow(2, currentGrade) - 1);
             int endIndex = (int)(Math.pow(2, currentGrade + 1) - 2) + 1 > this.heapNum ? this.heapNum
                 : (int)(Math.pow(2, currentGrade + 1) - 2) + 1;
