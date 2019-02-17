@@ -7,6 +7,7 @@ import java.util.Vector;
 import lind001.jds.exception.JDSException;
 import lind001.jds.heap.Heap;
 import lind001.jds.queue.LinkQueue;
+import lind001.jds.stack.LinkStack;
 import lind001.jds.tree.BinaryTree;
 import lind001.jds.tree.TreeNode;
 
@@ -352,6 +353,63 @@ public class Tree {
 			}
 		}
 		return r;
+	}
+	
+	/**
+	 * 按从左至右的顺序连接叶子节点
+	 * p122-16
+	 * @param bt
+	 * @return
+	 * @throws JDSException 
+	 */
+	public static List<TreeNode> joinLeafNodes(BinaryTree bt) throws JDSException {
+		// 思路：从左至右顺序，可以联想到中序遍历获取叶子节点，然后连接这些叶子节点
+		LinkStack stack  = new LinkStack();
+		List<TreeNode> leafList = new ArrayList<>();
+		stack.push(bt.root);
+		while (!stack.isEmpty()) {
+			TreeNode topNode = stack.getTop();
+			// 需要判断topNode的左孩子是否已经访问过，避免陷入死循环
+			if (topNode.lchild!=null && !topNode.lchild.hasVisited) {
+				stack.push(topNode.lchild);
+			}else {
+				if (topNode.rchild != null) {
+					stack.pop();
+					topNode.hasVisited = true;
+					stack.push(topNode.rchild);
+				}else {
+					if (topNode.isLeaf() && leafList.size()>0) {
+						leafList.get(leafList.size()-1).rchild = topNode;
+					}
+					if (topNode.isLeaf()) {
+						leafList.add(topNode);
+					}
+					stack.pop();
+					topNode.hasVisited = true;
+				}
+			}
+		}
+		return leafList;
+	}  
+	
+	
+	/**
+	 * 判断两颗二叉树是否相似
+	 * p122-17
+	 * @param t1
+	 * @param t2
+	 * @return
+	 */
+	public static boolean isSimilar(TreeNode t1,TreeNode t2) {
+		if (t1==null && t2==null) {
+			return true;
+		}
+		if (t1!=null && t2!= null) {
+			if (isSimilar(t1.lchild, t2.lchild) && isSimilar(t1.rchild, t2.rchild)) {
+				return true;
+			}	
+		}
+		return false;
 	}
 	
 }

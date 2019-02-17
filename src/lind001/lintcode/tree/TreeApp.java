@@ -1,5 +1,6 @@
 package lind001.lintcode.tree;
 
+import java.util.List;
 import java.util.Vector;
 
 import lind001.jds.exception.JDSException;
@@ -64,6 +65,28 @@ public class TreeApp {
 	    System.out.print(r.key+"  ");
 	    r = Tree.findCommonAncestor(bt, new TreeNode(41), new TreeNode(20));
 	    System.out.print(r.key);
-
+	    // ⑨以从左至右顺序链接叶子节点
+	    System.out.println("\n");
+	    List<TreeNode> leafList = Tree.joinLeafNodes(bt);
+	    TreeNode leafHead = leafList.get(0);
+	    while (leafHead!=null) {
+	    	if (leafHead.rchild == null) {
+		    	System.out.print(leafHead.key);
+	    	} else {
+	    		System.out.print(leafHead.key + "->");
+	    	}
+	    	leafHead = leafHead.rchild;
+	    }
+	    // 10.判断两棵树是否相似
+	    System.out.println("\n");
+	    BinarySortTree T1 = new BinarySortTree(new TreeNode(20));
+	    T1.insert(new TreeNode(15));
+	    T1.insert(new TreeNode(10));
+	    BinarySortTree T2 = new BinarySortTree(new TreeNode(30));
+	    T2.insert(new TreeNode(25));
+	    T2.insert(new TreeNode(20));
+	    System.out.print(Tree.isSimilar(T1.root, T2.root)+"  ");
+	    T2.insert(new TreeNode(40));
+	    System.out.print(Tree.isSimilar(T1.root, T2.root));
 	}
 }
